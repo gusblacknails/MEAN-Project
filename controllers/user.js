@@ -92,11 +92,13 @@ function loginUser(req, res){
 //recojerá el id del usuario q le llegará en el cuerpo de la petición "updateUser/:id" en req.params 
 function updateUser(req, res){
 	//esta variable la recojemos de la url(params)
-	var userId = req.params.userId
+	var userId = req.params.id
 	//aquí recojemos el body de la petición, todos los datos que llegarán del usuario
 	var update = req.body
+	console.log(userId)
 	//este método se va a encargar de actualizar los datos de un usuario "en este caso" dado un id y los datos a actualizar
-	User.findByIdAndUpdate( userId, update, (err, userUpdated) =>{
+	User.findByIdAndUpdate(userId, update, (err, userUpdated) =>{
+
 		//si nos devuelve un error
 		if(err){
 			res.status(500).send({message: 'Error al actualizar el usuario'})
@@ -104,7 +106,7 @@ function updateUser(req, res){
 			if(!userUpdated){
 				res.status(404).send({message: 'No se a podido actualizar el usuario'})
 			}else{
-				res.status(200).send({user: 'El usuario no ha podido loguearse'})
+				res.status(200).send({user: userUpdated})
 			}
 			
 		}
